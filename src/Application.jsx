@@ -8,7 +8,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import theme from './mui-theme';
 import styledTheme from './styled-theme';
 import Header from './components/Header';
-import Main from './components/pages/Main';
+import Dashboard from './components/pages/Dashboard';
 import { getData } from './actions/dataActions';
 
 class Application extends Component {
@@ -46,8 +46,8 @@ class Application extends Component {
                       data={testData}
                     />
                   }
-                  <Wrapper>
-                    <Main {...props} data={testData} />
+                  <Wrapper className="container">
+                    <Dashboard {...props} data={testData} />
                   </Wrapper>
                 </>
               )}

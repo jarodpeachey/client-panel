@@ -28,7 +28,7 @@ class Header extends Component {
     return (
       <span>
         <Wrapper>
-          <div className="container py-xxs">
+          <div className="container wide py-xxs">
             <Row>
               <ColumnOne>
                 <Link to="/">
