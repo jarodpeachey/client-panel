@@ -6,7 +6,7 @@ const styledTheme = {
     xl: '1220px',
   },
   colors: {
-    primary: '#158EE1',
+    primary: '#0078FF',
     // meals: '#FF9900',
     // workouts: '#ED002F',
     secondary: '#ff8f00',

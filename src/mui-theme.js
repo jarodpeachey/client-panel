@@ -6,6 +6,8 @@ const overrides = {
       userSelect: 'none',
       outline: 'none',
       margin: '8px',
+      borderRadius: 0,
+      boxShadow: 'none !important',
     },
   },
 };
@@ -30,9 +32,9 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     }, // Feel free to change this
     primary: {
-      main: '#158EE1',
-      light: '#4CA3DE',
-      dark: '#057DCF',
+      main: '#0078FF',
+      light: '#3696FF',
+      dark: '#0068DD',
       contrastText: '#fff',
     },
   },

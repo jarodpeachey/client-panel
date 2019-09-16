@@ -67,7 +67,6 @@ const CustomMenuItem = styled.li`
   border-bottom: 1px solid transparent;
   :hover {
     border-bottom: ${props => (props.noBorderOnHover ? '1px solid transparent' : '1px solid white')};
-    background: #037dd0;
     transition-duration: 0.25s;
   }
   font-weight: ${props => (props.active ? 'bold' : 400)};
