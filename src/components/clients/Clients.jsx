@@ -1,26 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Person from '@material-ui/icons/Person';
 
 class Clients extends Component {
-  static propTypes = {
-
-  };
+  static propTypes = {};
 
   constructor (props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
-  componentDidMount () {
+  componentDidMount () {}
 
-  }
-
-  shouldComponentUpdate () {
-
-  }
+  shouldComponentUpdate () {}
 
   render () {
     const clients = [
@@ -43,7 +36,46 @@ class Clients extends Component {
     ];
 
     return (
-      <h3>This is the clients area.</h3>
+      <>
+        {clients ? (
+          <>
+            <div>
+              <h2 className="m-none display-flex align-left v-align-center">
+                <Person
+                  style={{
+                    height: 15,
+                    width: 15,
+                    fontSize: 15,
+                  }}
+                />
+                <Person
+                  style={{
+                    height: 35,
+                    width: 35,
+                    fontSize: 35,
+                    position: 'relative',
+                    right: 10,
+                  }}
+                />
+                <Person
+                  style={{
+                    height: 15,
+                    width: 15,
+                    fontSize: 15,
+                    position: 'relative',
+                    right: 20,
+                    marginRight: -10,
+                  }}
+                />
+                {' '}
+                Clients
+              </h2>
+            </div>
+          </>
+        ) : (
+          <h3>This is the clients area.</h3>
+        )}
+      </>
     );
   }
 }

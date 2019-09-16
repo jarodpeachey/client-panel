@@ -1,17 +1,32 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 import Clients from '../clients/Clients';
-import Sidebar from '../Sidebar';
 
 export default function Dashboard () {
   return (
     <div>
-      <h1>Dashboard</h1>
-      <div className="row">
-        <div className="col col-9">
+      <div className="row mobile pt-lg">
+        <div className="col col-9 pt-xxs">
           <Clients />
         </div>
         <div className="col col-3">
-          <Sidebar />
+          <Link to="/client/add">
+            <Button color="primary" variant="contained" className="m-none">
+              <span
+                style={{
+                  fontSize: 32,
+                  marginRight: 8,
+                  padding: 0,
+                  lineHeight: 0,
+                }}
+              >
+                +
+                {' '}
+              </span>
+              New
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
