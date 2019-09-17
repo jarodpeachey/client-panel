@@ -32,9 +32,7 @@ const theme = createMuiTheme({
       contrastText: '#fff',
     }, // Feel free to change this
     primary: {
-      main: '#0078FF',
-      light: '#3696FF',
-      dark: '#0068DD',
+      main: '#435d7d',
       contrastText: '#fff',
     },
   },

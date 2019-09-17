@@ -6,10 +6,10 @@ const styledTheme = {
     xl: '1220px',
   },
   colors: {
-    primary: '#0078FF',
+    primary: '#435d7d',
     // meals: '#FF9900',
     // workouts: '#ED002F',
-    secondary: '#ff8f00',
+    secondary: '#F5A623',
     gray1: '#f7f7f7',
     gray2: '#eeeeee',
     gray3: '#d3d3d3',
