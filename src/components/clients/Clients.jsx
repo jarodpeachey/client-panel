@@ -50,7 +50,7 @@ class Clients extends Component {
       <>
         {clients ? (
           <>
-            <Paper classes={{ root: classes.root }}>
+            <Paper elevation={0} classes={{ root: classes.root }}>
               <TableHeading>
                 <div>
                   <h2 className="m-none display-flex align-left v-align-center">
@@ -95,60 +95,62 @@ class Clients extends Component {
                   </Button>
                 </Link>
               </TableHeading>
-              <Table className={classes.table}>
-                <TableHead>
-                  <TableRow>
-                    <TableCell className={classes.tableCellHead}>
-                      Name
-                    </TableCell>
-                    <TableCell className={classes.tableCellHead}>
-                      Email
-                    </TableCell>
-                    <TableCell className={classes.tableCellHead}>
-                      Balance
-                    </TableCell>
-                    <TableCell
-                      className={classes.tableCellHead}
-                      align="right"
-                    />
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {clients.map(client => (
-                    <TableRow key={client.id}>
-                      <TableCell
-                        className={classes.tableCellBody}
-                        component="th"
-                        scope="row"
-                      >
-                        {client.firstName}
-                        {' '}
-                        {client.lastName}
+              <div className="py-sm px-md pt-xs">
+                <Table className={classes.table}>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell className={classes.tableCellHead}>
+                        Name
                       </TableCell>
-                      <TableCell className={classes.tableCellBody}>
-                        {client.email}
+                      <TableCell className={classes.tableCellHead}>
+                        Email
                       </TableCell>
-                      <TableCell className={classes.tableCellBody}>
-                        {client.balance}
+                      <TableCell className={classes.tableCellHead}>
+                        Balance
                       </TableCell>
                       <TableCell
-                        className={classes.tableCellBody}
+                        className={classes.tableCellHead}
                         align="right"
-                      >
-                        <Link to={`client/${client.id}`}>
-                          <Button
-                            variant="contained"
-                            size="small"
-                            className={classes.button}
-                          >
-                            Details
-                          </Button>
-                        </Link>
-                      </TableCell>
+                      />
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {clients.map(client => (
+                      <TableRow key={client.id}>
+                        <TableCell
+                          className={classes.tableCellBody}
+                          component="th"
+                          scope="row"
+                        >
+                          {client.firstName}
+                          {' '}
+                          {client.lastName}
+                        </TableCell>
+                        <TableCell className={classes.tableCellBody}>
+                          {client.email}
+                        </TableCell>
+                        <TableCell className={classes.tableCellBody}>
+                          {client.balance}
+                        </TableCell>
+                        <TableCell
+                          className={classes.tableCellBody}
+                          align="right"
+                        >
+                          <Link to={`client/${client.id}`}>
+                            <Button
+                              variant="contained"
+                              size="small"
+                              className={classes.button}
+                            >
+                              Details
+                            </Button>
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
             </Paper>
           </>
         ) : (
@@ -162,6 +164,7 @@ class Clients extends Component {
 const styles = theme => ({
   root: {
     marginTop: theme.spacing(4),
+    boxShadow: '0px 0px 1px 1px #f1f1f1',
   },
   table: {
     minWidth: 0,
