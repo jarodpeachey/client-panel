@@ -88,7 +88,7 @@ class Clients extends Component {
                   <Button
                     color="secondary"
                     variant="contained"
-                    className="m-none"
+                    className={classes.newButton}
                   >
                     <PlusIcon>+ </PlusIcon>
                     New
@@ -172,6 +172,11 @@ const styles = theme => ({
   button: {
     margin: 0,
   },
+  newButton: {
+    paddingTop: 2,
+    paddingBottom: 2,
+    margin: 0,
+  },
   tableCellHead: {
     color: [theme.palette.secondary.main],
     fontSize: 14,
@@ -185,11 +190,12 @@ const TableHeading = styled.div`
   color: white;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 `;
 
 const PlusIcon = styled.span`
-  font-size: 32;
-  margin-right: 8;
+  font-size: 32px;
+  margin-right: 8px;
   padding: 0;
   line-height: 0;
 `;
