@@ -130,7 +130,8 @@ class Clients extends Component {
                           {client.email}
                         </TableCell>
                         <TableCell className={classes.tableCellBody}>
-                          {client.balance}
+                          $
+                          {parseFloat(client.balance).toFixed(2)}
                         </TableCell>
                         <TableCell
                           className={classes.tableCellBody}
