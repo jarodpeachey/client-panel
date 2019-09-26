@@ -3,7 +3,9 @@ import {
 } from '../actions/types';
 
 const initialState = {
-  data: {},
+  testData: {
+    test: 'TEST',
+  },
 };
 
 // const addArrayItem = (array, newItem) => {
