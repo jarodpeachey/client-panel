@@ -1,6 +1,6 @@
 import thunk from 'redux-thunk';
 import { applyMiddleware, compose, createStore, combineReducers } from 'redux';
-import { persistStore, persistCombineReducers, persistReducer } from 'redux-persist';
+import { persistStore, persistReducer } from 'redux-persist';
 import firebase from 'firebase';
 import 'firebase/firestore';
 import { reactReduxFirebase, firebaseReducer } from 'react-redux-firebase';
@@ -27,24 +27,13 @@ const reactReduxFirebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const firestore = firebase.firestore();
-
-// const createStoreWithFirebase = compose(
-
-// )(createStore);
+// const firestore = firebase.firestore(); // We will use this later
 
 const persistConfig = {
   key: 'root',
   storage,
   stateReconciler: autoMergeLevel2,
 };
-
-// const persistCombinedReducers = persistCombineReducers({
-//   persistConfig,
-//   reducers,
-//   firebase: firebaseReducer,
-//   firestore: firestoreReducer,
-// })(persistConfig, reducers);
 
 const rootReducer = combineReducers({
   firebase: firebaseReducer,
