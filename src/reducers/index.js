@@ -1,7 +1,11 @@
+import { combineReducers } from 'redux';
+import { firebaseReducer } from 'react-redux-firebase';
+import { firestoreReducer } from 'redux-firestore';
 import dataReducer from './dataReducer';
 
-const reducers = {
+// Add firebase to reducers
+export default combineReducers({
+  firebase: firebaseReducer,
+  firestore: firestoreReducer,
   dataReducer,
-};
-
-export default reducers;
+});

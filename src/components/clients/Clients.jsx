@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { firestoreConnect, firebaseConnect } from 'react-redux-firebase';
 import styled from 'styled-components';
-import { withStyles, Button, Paper } from '@material-ui/core';
+import { withStyles, Button, Paper, LinearProgress } from '@material-ui/core';
 import Person from '@material-ui/icons/Person';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -13,42 +16,48 @@ import TableRow from '@material-ui/core/TableRow';
 class Clients extends Component {
   static propTypes = {
     classes: PropTypes.object,
+    // firestore: PropTypes.object.isRequired,
+    // clients: PropTypes.array,
   };
 
   constructor (props) {
     super(props);
-    this.state = {};
+    this.state = {
+      clients: [],
+    };
   }
 
-  componentDidMount () {}
+  componentDidMount () {
+    // this.props.database.collection('clients')
+    //   .get()
+    //   .then((querySnapshot) => {
+    //     const array = [];
+    //     querySnapshot.forEach((doc) => {
+    //       console.log('Client: ', doc.data());
+    //       array.push(doc.data());
+    //     });
+    //     console.log('Array: ', array);
+    //     this.setState({ clients: array });
+    //   })
+    //   .catch((error) => {
+    //     console.log('Error getting documents: ', error);
+    //   });
+  }
 
-  shouldComponentUpdate () {}
+  shouldComponentUpdate (nextState) {
+    if (this.state.clients !== nextState.clients) {
+      return true;
+    }
+    return false;
+  }
 
   render () {
-    const { classes } = this.props;
+    const { classes, clients } = this.props;
 
-    const clients = [
-      {
-        id: 12323516,
-        firstName: 'Kevin',
-        lastName: 'Johnson',
-        email: 'kevin@mail.com',
-        phone: '111-123-1234',
-        balance: 150,
-      },
-      {
-        id: 235231535,
-        firstName: 'James',
-        lastName: 'White',
-        email: 'james@mail.com',
-        phone: '432-1321-111',
-        balance: 100,
-      },
-    ];
-
+    console.log('Clients: ', clients);
     return (
       <>
-        {clients ? (
+        {clients && clients.length ? (
           <>
             <Paper elevation={0} classes={{ root: classes.root }}>
               <TableHeading>
@@ -155,7 +164,20 @@ class Clients extends Component {
             </Paper>
           </>
         ) : (
-          <h3>This is the clients area.</h3>
+          <>
+            {!clients ? (
+              <>
+                <div className="center-text mb-md">
+                  <h3>Loading clients...</h3>
+                </div>
+                <LinearProgress />
+              </>
+            ) : (
+              <div className="center-text">
+                <h3>Sorry, there was an error fetching your clients.</h3>
+              </div>
+            )}
+          </>
         )}
       </>
     );
@@ -164,7 +186,7 @@ class Clients extends Component {
 
 const styles = theme => ({
   root: {
-    marginTop: theme.spacing(4),
+    marginTop: theme.spacing(6),
     boxShadow: '0px 0px 1px 1px #f1f1f1',
   },
   table: {
@@ -201,4 +223,12 @@ const PlusIcon = styled.span`
   line-height: 0;
 `;
 
-export default withStyles(styles)(Clients);
+const mapStateToProps = state => ({
+  clients: state.firestore.ordered.clients,
+});
+
+export default compose(
+  connect(mapStateToProps),
+  firestoreConnect([{ collection: 'clients' }]),
+)(withStyles(styles)(Clients));
+
