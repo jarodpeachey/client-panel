@@ -24,6 +24,7 @@ class Clients extends Component {
     super(props);
     this.state = {
       clients: [],
+      totalOwed: 0,
     };
   }
 
@@ -44,8 +45,34 @@ class Clients extends Component {
     //   });
   }
 
-  shouldComponentUpdate (nextState) {
-    if (this.state.clients !== nextState.clients) {
+  // componentWillReceiveProps (nextProps) {
+  //   if (this.props.clients !== nextProps.clients && this.props.clients) {
+  //     let totalBalance = 0;
+  //     this.props.clients.forEach((client) => {
+  //       totalBalance += parseFloat(client.balance.toString());
+  //     });
+
+  //     this.setState({ totalOwed: totalBalance });
+  //   }
+  // }
+
+  static getDerivedStateFromProps (props, state) {
+    const { clients } = props;
+
+    if (clients) {
+      const total = clients.reduce((total, client) => total + parseFloat(client.balance.toString()), 0);
+
+      return { totalOwed: total };
+    }
+
+    return null;
+  }
+
+  shouldComponentUpdate (nextState, nextProps) {
+    if (this.props.clients !== nextProps.clients && this.props.clients) {
+      return true;
+    }
+    if (this.state.totalOwed !== nextState.totalOwed) {
       return true;
     }
     return false;
@@ -53,6 +80,7 @@ class Clients extends Component {
 
   render () {
     const { classes, clients } = this.props;
+    const { totalOwed } = this.state;
 
     console.log('Clients: ', clients);
     return (
@@ -160,6 +188,12 @@ class Clients extends Component {
                     ))}
                   </TableBody>
                 </Table>
+                <div className="mt-sm">
+                  <strong>
+                    Total Owed: $
+                    {parseFloat(totalOwed).toFixed(2)}
+                  </strong>
+                </div>
               </div>
             </Paper>
           </>
@@ -231,4 +265,3 @@ export default compose(
   connect(mapStateToProps),
   firestoreConnect([{ collection: 'clients' }]),
 )(withStyles(styles)(Clients));
-
