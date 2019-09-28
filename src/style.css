@@ -1,6 +1,20 @@
 /* LAYOUT AND GRID SYSTEM
 --------------------------------------------------------------- */
 
+.MuiOutlinedInput-notchedOutline  {
+  border-color: #f7f7f7 !important;
+  border-radius: 0px !important;
+  border-width: 1.5px !important;
+}
+
+.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #435d7d !important;
+}
+
+form .Mui-error fieldset.MuiOutlinedInput-notchedOutline {
+  border-color: #FF6347 !important;
+}
+
 *::before,
 *::after,
 * {

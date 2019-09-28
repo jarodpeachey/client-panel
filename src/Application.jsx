@@ -11,6 +11,7 @@ import theme from './mui-theme';
 import styledTheme from './styled-theme';
 import Header from './components/Header';
 import Dashboard from './components/pages/Dashboard';
+import AddClient from './components/clients/AddClient';
 
 class Application extends Component {
   static propTypes = {
@@ -46,6 +47,23 @@ class Application extends Component {
                   }
                   <Wrapper className="container">
                     <Dashboard {...props} database={this.props.firestore} />
+                  </Wrapper>
+                </>
+              )}
+            />
+            <Route
+              exact
+              path="/client/add"
+              render={props => (
+                <>
+                  {
+                    <Header
+                      {...props}
+                      pathname={location.pathname}
+                    />
+                  }
+                  <Wrapper className="container">
+                    <AddClient {...props} database={this.props.firestore} />
                   </Wrapper>
                 </>
               )}

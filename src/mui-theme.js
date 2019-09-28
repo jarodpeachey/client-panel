@@ -5,9 +5,25 @@ const overrides = {
     root: {
       userSelect: 'none',
       outline: 'none',
-      margin: '8px',
+      margin: '0px',
       borderRadius: 0,
       boxShadow: 'none !important',
+    },
+  },
+  MuiInputBase: {
+    input: {
+      background: '#f7f7f7 !important',
+      padding: '12px !important',
+    },
+    root: {
+      margin: '0 0 10px 0',
+    },
+  },
+  MuiCard: {
+    root: {
+      borderRadius: 0,
+      boxShadow: '0px 0px 2px 1px #eaeaea',
+      overflow: 'visible',
     },
   },
 };

@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { firestoreConnect, firebaseConnect } from 'react-redux-firebase';
+import { firestoreConnect } from 'react-redux-firebase';
 import styled from 'styled-components';
-import { withStyles, Button, Paper, LinearProgress } from '@material-ui/core';
+import { withStyles, Button, Card, LinearProgress } from '@material-ui/core';
 import Person from '@material-ui/icons/Person';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -87,7 +87,7 @@ class Clients extends Component {
       <>
         {clients && clients.length ? (
           <>
-            <Paper elevation={0} classes={{ root: classes.root }}>
+            <Card classes={{ root: classes.root }}>
               <TableHeading>
                 <div>
                   <h2 className="m-none display-flex align-left v-align-center">
@@ -195,7 +195,7 @@ class Clients extends Component {
                   </strong>
                 </div>
               </div>
-            </Paper>
+            </Card>
           </>
         ) : (
           <>
@@ -221,7 +221,8 @@ class Clients extends Component {
 const styles = theme => ({
   root: {
     marginTop: theme.spacing(6),
-    boxShadow: '0px 0px 1px 1px #f1f1f1',
+    borderTopRightRadius: 0,
+    borderTopLeftRadius: 0,
   },
   table: {
     minWidth: 0,
