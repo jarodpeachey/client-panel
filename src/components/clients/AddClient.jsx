@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+// import { connect } from 'react-redux';
+// import { compose } from 'redux';
+import { firestoreConnect } from 'react-redux-firebase';
+// import { Link } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -9,7 +12,6 @@ import {
   withStyles,
   TextField,
 } from '@material-ui/core';
-import Person from '@material-ui/icons/Person';
 
 class AddClient extends Component {
   static propTypes = {
@@ -19,11 +21,11 @@ class AddClient extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      firstNameInputValue: '',
-      lastNameInputValue: '',
-      emailInputValue: '',
-      phoneInputValue: '',
-      balanceInputValue: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      balance: '',
     };
 
     this.onFirstNameInputChange = this.onFirstNameInputChange.bind(this);
@@ -31,49 +33,74 @@ class AddClient extends Component {
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
     this.onPhoneInputChange = this.onPhoneInputChange.bind(this);
     this.onBalanceInputChange = this.onBalanceInputChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount () {}
 
   shouldComponentUpdate (nextState) {
-    if (this.state.firstNameInputValue !== nextState.firstNameInputValue) {
+    if (this.state.firstName !== nextState.firstName) {
       return true;
     }
     return false;
   }
 
   onFirstNameInputChange (e) {
-    this.setState({ onFirstNameInputChange: e.target.value });
+    this.setState({ firstName: e.target.value });
   }
 
   onLastNameInputChange (e) {
-    this.setState({ onLastNameInputChange: e.target.value });
+    this.setState({ lastName: e.target.value });
   }
 
   onEmailInputChange (e) {
-    this.setState({ onEmailInputChange: e.target.value });
+    this.setState({ email: e.target.value });
   }
 
   onPhoneInputChange (e) {
-    this.setState({ onPhoneInputChange: e.target.value });
+    this.setState({ phone: e.target.value });
   }
 
   onBalanceInputChange (e) {
-    this.setState({ onBalanceInputChange: e.target.value });
+    this.setState({ balance: e.target.value });
+  }
+
+  onSubmit (e) {
+    e.preventDefault();
+
+    const newClient = { ...this.state };
+
+    if (newClient.balance === '') {
+      newClient.balance = 0;
+    }
+
+    if (newClient.email !== '' && newClient.firstName !== '' && newClient.lastName !== '') {
+      const { firestore, history } = this.props;
+
+      firestore.collection('clients').add(newClient)
+        .then((res) => {
+          console.log(res);
+          history.push('/');
+        })
+        .catch(err => console.log(err));      
+    }
   }
 
   render () {
     const { classes } = this.props;
-    const { firstNameInputValue, lastNameInputValue, emailInputValue, phoneInputValue, balanceInputValue } = this.state;
+    // const { firstName, lastName, email, phone, balance } = this.state;
+
+    // console.log("Props: ", this.props);
+
     return (
       <Wrapper>
         <Card classes={{ root: classes.cardRoot }}>
           <CardContent>
-            <div className={classes.mainIconContainer}>
+            {/* <div className={classes.mainIconContainer}>
               <Person classes={{ root: classes.mainIcon }} />
-            </div>
-            <h2 className="center-text" style={{ marginTop: -54 }}>Add Client</h2>
-            <form>
+            </div> */}
+            <Heading className="center-text">Add Client</Heading>
+            <form onSubmit={this.onSubmit}>
               <TextField
                 id="firstName"
                 name="firstName"
@@ -133,7 +160,7 @@ class AddClient extends Component {
                 classes={{ root: classes.buttonRoot }}
                 type="submit"
                 variant="contained"
-                color="primary"
+                color="secondary"
                 fullWidth
                 margin="standard"
               >
@@ -153,23 +180,23 @@ const styles = theme => ({
     margin: '0 auto',
     padding: 16,
   },
-  mainIcon: {
-    width: 120,
-    height: 120,
-    padding: 16,
-    background: [theme.palette.primary.main],
-    color: 'white',
-    borderRadius: '50%',
-  },
-  mainIconContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
-    width: '100%',
-    left: 0,
-    bottom: 'calc(16px + 60px)',
-  },
+  // mainIcon: {
+  //   width: 120,
+  //   height: 120,
+  //   padding: 16,
+  //   background: '#ccc',
+  //   color: 'white',
+  //   borderRadius: '50%',
+  // },
+  // mainIconContainer: {
+  //   display: 'flex',
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   position: 'relative',
+  //   width: '100%',
+  //   left: 0,
+  //   bottom: 'calc(32px + 60px)',
+  // },
   buttonRoot: {
     padding: 10,
     marginTop: 8,
@@ -177,7 +204,12 @@ const styles = theme => ({
 });
 
 const Wrapper = styled.div`
-  margin-top: 64px;
+  margin-top: 16px;
 `;
 
-export default withStyles(styles)(AddClient);
+const Heading = styled.h2`
+  // margin-top: -54px;
+  color: ${({ theme }) => theme.colors.secondary};
+`;
+
+export default firestoreConnect()(withStyles(styles)(AddClient));
