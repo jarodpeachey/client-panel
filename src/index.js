@@ -30,6 +30,7 @@ const firebaseConfig = {
 const reactReduxFirebaseConfig = {
   userProfile: 'users',
   useFirestoreForProfile: true,
+  allowMultipleListeners: true,
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -51,18 +52,18 @@ const renderApp = () => {
     <>
       <Provider store={store}>
         {/* <PersistGate persistor={persistor}> */}
-          <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
-            <Router history={history}>
-              <Route
-                render={props => (
-                  <Application
-                    {...props}
-                    database={firebase}
-                  />
-                )}
-              />
-            </Router>
-          </ReactReduxFirebaseProvider>
+        <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
+          <Router history={history}>
+            <Route
+              render={props => (
+                <Application
+                  {...props}
+                  database={firebase}
+                />
+              )}
+            />
+          </Router>
+        </ReactReduxFirebaseProvider>
         {/* </PersistGate> */}
       </Provider>
     </>,

@@ -1,30 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import styled from 'styled-components';
-import { withStyles, Button, Card, LinearProgress } from '@material-ui/core';
-import Person from '@material-ui/icons/Person';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { LinearProgress } from '@material-ui/core';
 
 class ClientDetails extends Component {
   static propTypes = {
-    classes: PropTypes.object,
-    // firestore: PropTypes.object.isRequired,
-    // clients: PropTypes.array,
+
   };
 
   constructor (props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
   }
 
   componentDidMount () {
@@ -39,7 +26,8 @@ class ClientDetails extends Component {
   }
 
   render () {
-    const { classes, client } = this.props;
+    console.log(this.props);
+    const { client } = this.props;
     console.log('Client: ', client);
 
     return (
@@ -67,17 +55,11 @@ class ClientDetails extends Component {
   }
 }
 
-const styles = () => ({
-
-});
-
-const mapStateToProps = state => ({
-  client: state.firestore.ordered.client && state.firestore.ordered.client[0],
-});
-
 export default compose(
-  connect(mapStateToProps),
   firestoreConnect(props => [
     { collection: 'clients', storeAs: 'client', doc: props.match.params.id },
   ]),
-)(withStyles(styles)(ClientDetails));
+  connect(({ firestore: { data } }, props) => ({
+    client: data.client,
+  })),
+)(ClientDetails);
