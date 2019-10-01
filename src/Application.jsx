@@ -12,6 +12,7 @@ import styledTheme from './styled-theme';
 import Header from './components/Header';
 import Dashboard from './components/pages/Dashboard';
 import AddClient from './components/clients/AddClient';
+import ClientDetails from './components/clients/ClientDetails';
 
 class Application extends Component {
   static propTypes = {
@@ -46,7 +47,7 @@ class Application extends Component {
                     />
                   }
                   <Wrapper className="container">
-                    <Dashboard {...props} database={this.props.firestore} />
+                    <Dashboard {...props} />
                   </Wrapper>
                 </>
               )}
@@ -63,7 +64,24 @@ class Application extends Component {
                     />
                   }
                   <Wrapper className="container">
-                    <AddClient {...props} database={this.props.firestore} />
+                    <AddClient {...props} />
+                  </Wrapper>
+                </>
+              )}
+            />
+            <Route
+              exact
+              path="/client/:id"
+              render={props => (
+                <>
+                  {
+                    <Header
+                      {...props}
+                      pathname={location.pathname}
+                    />
+                  }
+                  <Wrapper className="container">
+                    <ClientDetails {...props} />
                   </Wrapper>
                 </>
               )}
