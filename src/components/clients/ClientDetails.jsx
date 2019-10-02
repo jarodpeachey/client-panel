@@ -15,11 +15,14 @@ class ClientDetails extends Component {
   }
 
   componentDidMount () {
-
   }
 
-  shouldComponentUpdate (nextProps) {
-    if (this.props.client !== nextProps.client && this.props.client) {
+  componentWillReceiveProps (nextProps) {
+    this.setState({ client: nextProps.client });
+  }
+
+  shouldComponentUpdate (nextState) {
+    if (this.state.client !== nextState.client) {
       return true;
     }
     return false;
@@ -27,8 +30,7 @@ class ClientDetails extends Component {
 
   render () {
     console.log(this.props);
-    const { client } = this.props;
-    console.log('Client: ', client);
+    const { client } = this.state;
 
     return (
       <>
