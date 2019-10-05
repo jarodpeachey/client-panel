@@ -1,6 +1,12 @@
 /* LAYOUT AND GRID SYSTEM
 --------------------------------------------------------------- */
 
+hr {
+  border: none;
+  background: #ddd;
+  height: 2px;
+}
+
 .MuiOutlinedInput-notchedOutline  {
   border-color: #f7f7f7 !important;
   border-radius: 0px !important;
