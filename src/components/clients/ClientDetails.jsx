@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types'
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import {
@@ -12,7 +13,10 @@ import {
 } from '@material-ui/core';
 
 class ClientDetails extends Component {
-  static propTypes = {};
+  static propTypes = {
+    firestore: PropTypes.object,
+    client: PropTypes.object,
+  };
 
   constructor (props) {
     super(props);
@@ -59,6 +63,7 @@ class ClientDetails extends Component {
                   <div className="col col-8">
                     <strong>
                       Client ID:
+                      {' '}
                     </strong>
                     {client.id}
                   </div>
@@ -66,11 +71,14 @@ class ClientDetails extends Component {
                     <div className="float-right">
                       <strong>
                         Balance:
+                        {' '}
                       </strong>
-                      {client.balance}
+                      $
+                      {parseFloat(client.balance).toFixed(2)}
                     </div>
                   </div>
                 </div>
+                <hr />
               </CardContent>
             </Card>
           </>
