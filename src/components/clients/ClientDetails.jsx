@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { LinearProgress } from '@material-ui/core';
+import { LinearProgress, Card, CardContent } from '@material-ui/core';
 
 class ClientDetails extends Component {
   static propTypes = {
@@ -35,7 +35,24 @@ class ClientDetails extends Component {
     return (
       <>
         {client ? (
-          <h1>Client Details</h1>
+          <>
+            <h1>
+              Client Details
+              {' '}
+              -
+              {' '}
+              {client.firstName}
+              {' '}
+              {client.lastName}
+            </h1>
+            <Card>
+              <CardContent>
+                Client ID:
+                {' '}
+                {client.id}
+              </CardContent>
+            </Card>
+          </>
         ) : (
           <>
             {!client ? (
