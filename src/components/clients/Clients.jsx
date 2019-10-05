@@ -5,7 +5,13 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import styled from 'styled-components';
-import { withStyles, Button, Card, LinearProgress } from '@material-ui/core';
+import {
+  withStyles,
+  Button,
+  Card,
+  LinearProgress,
+  CardHeader,
+} from '@material-ui/core';
 import Person from '@material-ui/icons/Person';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -60,7 +66,10 @@ class Clients extends Component {
     const { clients } = props;
 
     if (clients) {
-      const total = clients.reduce((total, client) => total + parseFloat(client.balance.toString()), 0);
+      const total = clients.reduce(
+        (total, client) => total + parseFloat(client.balance.toString()),
+        0,
+      );
 
       return { totalOwed: total };
     }
@@ -88,50 +97,55 @@ class Clients extends Component {
         {clients && clients.length ? (
           <>
             <Card classes={{ root: classes.root }}>
-              <TableHeading>
-                <div>
-                  <h2 className="m-none display-flex align-left v-align-center">
-                    <Person
-                      style={{
-                        height: 15,
-                        width: 15,
-                        fontSize: 15,
-                      }}
-                    />
-                    <Person
-                      style={{
-                        height: 35,
-                        width: 35,
-                        fontSize: 35,
-                        position: 'relative',
-                        right: 10,
-                      }}
-                    />
-                    <Person
-                      style={{
-                        height: 15,
-                        width: 15,
-                        fontSize: 15,
-                        position: 'relative',
-                        right: 20,
-                        marginRight: -10,
-                      }}
-                    />
-                    {' '}
-                    Clients
-                  </h2>
-                </div>
-                <Link to="/client/add">
-                  <Button
-                    color="secondary"
-                    variant="contained"
-                    className={classes.newButton}
-                  >
-                    <PlusIcon>+ </PlusIcon>
-                    New
-                  </Button>
-                </Link>
-              </TableHeading>
+              <CardHeader
+                classes={{ title: classes.cardHeader }}
+                title={(
+                  <>
+                    <div>
+                      <h2 className="m-none display-flex align-left v-align-center">
+                        <Person
+                          style={{
+                            height: 15,
+                            width: 15,
+                            fontSize: 15,
+                          }}
+                        />
+                        <Person
+                          style={{
+                            height: 35,
+                            width: 35,
+                            fontSize: 35,
+                            position: 'relative',
+                            right: 10,
+                          }}
+                        />
+                        <Person
+                          style={{
+                            height: 15,
+                            width: 15,
+                            fontSize: 15,
+                            position: 'relative',
+                            right: 20,
+                            marginRight: -10,
+                          }}
+                        />
+                        {' '}
+                        Clients
+                      </h2>
+                    </div>
+                    <Link to="/client/add">
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        className={classes.newButton}
+                      >
+                        <PlusIcon>+ </PlusIcon>
+                        New
+                      </Button>
+                    </Link>
+                  </>
+)}
+              />
               <div className="py-sm px-md pt-xs">
                 <Table className={classes.table}>
                   <TableHead>
@@ -219,11 +233,6 @@ class Clients extends Component {
 }
 
 const styles = theme => ({
-  root: {
-    marginTop: theme.spacing(6),
-    borderTopRightRadius: 0,
-    borderTopLeftRadius: 0,
-  },
   table: {
     minWidth: 0,
   },
@@ -243,12 +252,7 @@ const styles = theme => ({
 });
 
 const TableHeading = styled.div`
-  background: ${({ theme }) => theme.colors.primary};
-  padding: ${({ theme }) => `${theme.spacing.xs} ${theme.spacing.sm}`};
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+
 `;
 
 const PlusIcon = styled.span`

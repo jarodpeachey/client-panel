@@ -1,5 +1,18 @@
 import { createMuiTheme } from '@material-ui/core';
 
+const palette = {
+  secondary: {
+    main: '#F5A623',
+    light: '#ECB354',
+    dark: '#E49A1F',
+    contrastText: '#fff',
+  }, // Feel free to change this
+  primary: {
+    main: '#435d7d',
+    contrastText: '#fff',
+  },
+};
+
 const overrides = {
   MuiButton: {
     root: {
@@ -26,6 +39,19 @@ const overrides = {
       overflow: 'visible',
     },
   },
+  MuiCardHeader: {
+    root: {
+      background: [palette.primary.main],
+      padding: '12px 16px',
+      boxShadow: '0px 8px 16px -8px #bbb, 0 8px 16px 0 #ddd',
+    },
+    title: {
+      color: 'white',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+    },
+  },
 };
 
 const breakpoints = {
@@ -40,18 +66,7 @@ const breakpoints = {
 
 const theme = createMuiTheme({
   spacing: 4,
-  palette: {
-    secondary: {
-      main: '#F5A623',
-      light: '#ECB354',
-      dark: '#E49A1F',
-      contrastText: '#fff',
-    }, // Feel free to change this
-    primary: {
-      main: '#435d7d',
-      contrastText: '#fff',
-    },
-  },
+  palette,
   breakpoints,
   overrides,
   typography: {

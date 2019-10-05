@@ -2,20 +2,24 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
-import { LinearProgress, Card, CardContent } from '@material-ui/core';
+import {
+  LinearProgress,
+  Card,
+  CardContent,
+  CardHeader,
+  withStyles,
+  withTheme,
+} from '@material-ui/core';
 
 class ClientDetails extends Component {
-  static propTypes = {
-
-  };
+  static propTypes = {};
 
   constructor (props) {
     super(props);
     this.state = {};
   }
 
-  componentDidMount () {
-  }
+  componentDidMount () {}
 
   componentWillReceiveProps (nextProps) {
     this.setState({ client: nextProps.client });
@@ -31,25 +35,42 @@ class ClientDetails extends Component {
   render () {
     console.log(this.props);
     const { client } = this.state;
+    const { classes } = this.props;
 
     return (
       <>
         {client ? (
           <>
-            <h1>
-              Client Details
-              {' '}
-              -
-              {' '}
-              {client.firstName}
-              {' '}
-              {client.lastName}
-            </h1>
             <Card>
+              <CardHeader
+                title={(
+                  <h2 className="m-none">
+                    Client Details -
+                    {' '}
+                    {client.firstName}
+                    {' '}
+                    {client.lastName}
+                  </h2>
+                )}
+                classes={{ root: classes.cardHeader }}
+              />
               <CardContent>
-                Client ID:
-                {' '}
-                {client.id}
+                <div className="row mobile">
+                  <div className="col col-8">
+                    <strong>
+                      Client ID:
+                    </strong>
+                    {client.id}
+                  </div>
+                  <div className="col col-4">
+                    <div className="float-right">
+                      <strong>
+                        Balance:
+                      </strong>
+                      {client.balance}
+                    </div>
+                  </div>
+                </div>
               </CardContent>
             </Card>
           </>
@@ -74,11 +95,13 @@ class ClientDetails extends Component {
   }
 }
 
+const styles = theme => ({});
+
 export default compose(
   firestoreConnect(props => [
     { collection: 'clients', storeAs: 'client', doc: props.match.params.id },
   ]),
-  connect(({ firestore: { data } }, props) => ({
-    client: data.client,
+  connect(({ firestore: { ordered } }, props) => ({
+    client: ordered.client && ordered.client[0],
   })),
-)(ClientDetails);
+)(withTheme(withStyles(styles)(ClientDetails)));
