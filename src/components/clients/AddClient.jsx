@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import Helmet from 'react-helmet';
 // import { connect } from 'react-redux';
 // import { compose } from 'redux';
 import { firestoreConnect } from 'react-redux-firebase';
@@ -94,6 +95,7 @@ class AddClient extends Component {
 
     return (
       <Wrapper>
+        <Helmet title="Add Client - Client Panel" />
         <Card classes={{ root: classes.cardRoot }}>
           <CardContent>
             {/* <div className={classes.mainIconContainer}>

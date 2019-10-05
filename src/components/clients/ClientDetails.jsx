@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types'
+import PropTypes from 'prop-types';
 import { compose } from 'redux';
+import Helmet from 'react-helmet';
 import { firestoreConnect } from 'react-redux-firebase';
 import {
   LinearProgress,
@@ -45,6 +46,7 @@ class ClientDetails extends Component {
       <>
         {client ? (
           <>
+            <Helmet title={`Client Details - ${client.firstName} ${client.lastName}`} />
             <Card>
               <CardHeader
                 title={(

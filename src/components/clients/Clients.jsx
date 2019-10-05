@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
+import Helmet from 'react-helmet';
 import { firestoreConnect } from 'react-redux-firebase';
 import styled from 'styled-components';
 import {
@@ -96,6 +97,7 @@ class Clients extends Component {
       <>
         {clients && clients.length ? (
           <>
+            <Helmet title="Clients - Client Panel" />
             <Card classes={{ root: classes.root }}>
               <CardHeader
                 classes={{ title: classes.cardHeader }}
