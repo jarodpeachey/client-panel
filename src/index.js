@@ -55,12 +55,7 @@ const renderApp = () => {
         <ReactReduxFirebaseProvider {...reactReduxFirebaseProps}>
           <Router history={history}>
             <Route
-              render={props => (
-                <Application
-                  {...props}
-                  database={firebase}
-                />
-              )}
+              render={props => <Application {...props} database={firebase} />}
             />
           </Router>
         </ReactReduxFirebaseProvider>

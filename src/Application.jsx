@@ -7,12 +7,17 @@ import { compose } from 'redux';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import styled, { ThemeProvider } from 'styled-components';
 import { firestoreConnect } from 'react-redux-firebase';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEdit, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { fab } from '@fortawesome/free-brands-svg-icons';
 import theme from './mui-theme';
 import styledTheme from './styled-theme';
 import Header from './components/Header';
 import Dashboard from './components/pages/Dashboard';
 import AddClient from './components/clients/AddClient';
 import ClientDetails from './components/clients/ClientDetails';
+
+library.add(faEdit, faCheckCircle);
 
 class Application extends Component {
   static propTypes = {
@@ -25,9 +30,7 @@ class Application extends Component {
     this.state = {};
   }
 
-  componentDidMount () {
-
-  }
+  componentDidMount () {}
 
   render () {
     // console.log(this.props);
@@ -40,12 +43,7 @@ class Application extends Component {
               path="/"
               render={props => (
                 <>
-                  {
-                    <Header
-                      {...props}
-                      pathname={location.pathname}
-                    />
-                  }
+                  {<Header {...props} pathname={location.pathname} />}
                   <Wrapper className="container">
                     <Dashboard {...props} />
                   </Wrapper>
@@ -57,12 +55,7 @@ class Application extends Component {
               path="/client/add"
               render={props => (
                 <>
-                  {
-                    <Header
-                      {...props}
-                      pathname={location.pathname}
-                    />
-                  }
+                  {<Header {...props} pathname={location.pathname} />}
                   <Wrapper className="container">
                     <AddClient {...props} />
                   </Wrapper>
@@ -74,12 +67,7 @@ class Application extends Component {
               path="/client/:id"
               render={props => (
                 <>
-                  {
-                    <Header
-                      {...props}
-                      pathname={location.pathname}
-                    />
-                  }
+                  {<Header {...props} pathname={location.pathname} />}
                   <Wrapper className="container">
                     <ClientDetails {...props} />
                   </Wrapper>

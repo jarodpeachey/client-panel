@@ -5,6 +5,7 @@ import { compose } from 'redux';
 import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { firestoreConnect } from 'react-redux-firebase';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   LinearProgress,
   Card,
@@ -12,7 +13,10 @@ import {
   CardHeader,
   withStyles,
   withTheme,
+  IconButton,
+  Button,
 } from '@material-ui/core';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 class ClientDetails extends Component {
   static propTypes = {
@@ -22,26 +26,70 @@ class ClientDetails extends Component {
 
   constructor (props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showForm: false,
+      balanceUpdateAmount: '',
+      value: 0,
+    };
+    this.onUpdateBalance = this.onUpdateBalance.bind(this);
+    this.onDelete = this.onDelete.bind(this);
   }
 
-  componentDidMount () {}
+  // componentDidMount () {
+  //   this.setState({ value: parseFloat(this.state.client.balance).toFixed(2) });
+  // }
 
   componentWillReceiveProps (nextProps) {
-    this.setState({ client: nextProps.client });
+    this.setState({
+      client: nextProps.client,
+      value: nextProps.client.balance,
+    });
   }
 
   shouldComponentUpdate (nextState) {
     if (this.state.client !== nextState.client) {
       return true;
     }
+    if (this.state.showForm !== nextState.showForm) {
+      return true;
+    }
     return false;
+  }
+
+  onUpdateBalance () {
+    const { firestore } = this.props;
+    const { client, value } = this.state;
+
+    const clientUpdate = {
+      balance: parseFloat(value),
+    };
+
+    firestore.update({ collection: 'clients', doc: client.id }, clientUpdate);
+
+    this.setState({ showForm: false });
+  }
+
+  onDelete () {
+    const { firestore } = this.props;
+    const { client } = this.state;
+
+    firestore
+      .delete({ collection: 'clients', doc: client.id })
+      .then(() => this.props.history.push('/'));
   }
 
   render () {
     console.log(this.props);
-    const { client } = this.state;
+    const { client, showForm } = this.state;
     const { classes } = this.props;
+
+    const deleteTheme = createMuiTheme({
+      palette: {
+        primary: {
+          main: '#ff6347',
+        },
+      },
+    });
 
     return (
       <>
@@ -53,42 +101,72 @@ class ClientDetails extends Component {
             <Card>
               <CardHeader
                 title={(
-                  <h2 className="m-none">
-                    Client Details -
-                    {' '}
-                    {client.firstName}
-                    {' '}
-                    {client.lastName}
-                  </h2>
-                )}
+                  <div>
+                    <h2 className="m-none">
+                      Client Details -
+                      {' '}
+                      {client.firstName}
+                      {' '}
+                      {client.lastName}
+                    </h2>
+                    <ClientID>
+                      Client ID:
+                      {client.id}
+                    </ClientID>
+                  </div>
+)}
                 classes={{ root: classes.cardHeader }}
               />
               <CardContent>
-                <div className="row mobile">
-                  <div className="col col-8">
-                    <h3>
-                      Client ID:
-                      {client.id}
-                    </h3>
-                  </div>
-                  <div className="col col-4">
-                    <div className="float-right">
-                      <h3>
-Balance: $
-                        {parseFloat(client.balance).toFixed(2)}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-                <hr />
+                <ClientMainInfo>
+                  <strong>Balance:</strong>
+                  {' '}
+$
+                  {showForm ? (
+                    <input
+                      onChange={(e) => {
+                        this.setState({ value: e.target.value });
+                      }}
+                      value={this.state.value}
+                    />
+                  ) : (
+                    <>{parseFloat(this.state.value).toFixed(2)}</>
+                  )}
+                  {showForm ? (
+                    <IconButton
+                      onClick={this.onUpdateBalance}
+                      classes={{ root: classes.editButtonCheck }}
+                    >
+                      <FontAwesomeIcon icon="check-circle" />
+                    </IconButton>
+                  ) : (
+                    <IconButton
+                      onClick={() => {
+                        this.setState({ showForm: true });
+                      }}
+                      classes={{ root: classes.editButton }}
+                    >
+                      <FontAwesomeIcon icon="edit" />
+                    </IconButton>
+                  )}
+                </ClientMainInfo>
                 <CollectionItem>
-                  Contact Email:
+                  <strong>Contact Email: </strong>
                   {client.email}
                 </CollectionItem>
                 <CollectionItem>
-                  Contact Phone:
+                  <strong>Contact Phone: </strong>
                   {client.phone}
                 </CollectionItem>
+                <ThemeProvider theme={deleteTheme}>
+                  <Button
+                    onClick={this.onDelete}
+                    className={classes.deleteButton}
+                    color="primary"
+                  >
+                    DELETE
+                  </Button>
+                </ThemeProvider>
               </CardContent>
             </Card>
           </>
@@ -113,11 +191,55 @@ Balance: $
   }
 }
 
-const styles = theme => ({});
+const styles = theme => ({
+  editButton: {
+    fontSize: 12,
+    padding: '6px 4px 7px 6px',
+    position: 'relative',
+    top: -8,
+  },
+  editButtonCheck: {
+    fontSize: 16,
+    padding: 4,
+    position: 'relative',
+    top: -1,
+    left: 4,
+    color: 'green',
+  },
+  deleteButton: {
+    background: 'tomato',
+    color: 'white',
+  },
+});
+
+const ClientID = styled.h5`
+  font-weight: normal;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 6px;
+`;
+
+const ClientMainInfo = styled.h3`
+  & input {
+    font-weight: normal !important;
+    font-size: 18px !important;
+    width: 75px !important;
+    min-width: 75px !important;
+    max-width: 75px !important;
+    display: inline;
+  }
+  font-weight: normal !important;
+  font-size: 18px !important;
+  margin-bottom: 0 !important;
+  margin-left: auto !important;
+  width: fit-content !important;
+  & strong {
+    font-size: 20px !important;
+  }
+`;
 
 const CollectionItem = styled.div`
   background: #eee;
-  padding: 8px;
+  padding: 10px 16px;
   margin: 8px 0;
   border-radius: 1px;
 `;
