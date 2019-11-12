@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
+import styled from 'styled-components';
 import Helmet from 'react-helmet';
 import { firestoreConnect } from 'react-redux-firebase';
 import {
@@ -46,7 +47,9 @@ class ClientDetails extends Component {
       <>
         {client ? (
           <>
-            <Helmet title={`Client Details - ${client.firstName} ${client.lastName}`} />
+            <Helmet
+              title={`Client Details - ${client.firstName} ${client.lastName}`}
+            />
             <Card>
               <CardHeader
                 title={(
@@ -63,24 +66,29 @@ class ClientDetails extends Component {
               <CardContent>
                 <div className="row mobile">
                   <div className="col col-8">
-                    <strong>
+                    <h3>
                       Client ID:
-                      {' '}
-                    </strong>
-                    {client.id}
+                      {client.id}
+                    </h3>
                   </div>
                   <div className="col col-4">
                     <div className="float-right">
-                      <strong>
-                        Balance:
-                        {' '}
-                      </strong>
-                      $
-                      {parseFloat(client.balance).toFixed(2)}
+                      <h3>
+Balance: $
+                        {parseFloat(client.balance).toFixed(2)}
+                      </h3>
                     </div>
                   </div>
                 </div>
                 <hr />
+                <CollectionItem>
+                  Contact Email:
+                  {client.email}
+                </CollectionItem>
+                <CollectionItem>
+                  Contact Phone:
+                  {client.phone}
+                </CollectionItem>
               </CardContent>
             </Card>
           </>
@@ -106,6 +114,13 @@ class ClientDetails extends Component {
 }
 
 const styles = theme => ({});
+
+const CollectionItem = styled.div`
+  background: #eee;
+  padding: 8px;
+  margin: 8px 0;
+  border-radius: 1px;
+`;
 
 export default compose(
   firestoreConnect(props => [
