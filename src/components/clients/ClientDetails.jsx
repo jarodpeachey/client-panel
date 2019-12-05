@@ -16,7 +16,7 @@ import {
   IconButton,
   Button,
 } from '@material-ui/core';
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 class ClientDetails extends Component {
   static propTypes = {
@@ -40,10 +40,12 @@ class ClientDetails extends Component {
   // }
 
   componentWillReceiveProps (nextProps) {
-    this.setState({
-      client: nextProps.client,
-      value: nextProps.client.balance,
-    });
+    if (nextProps.client) {
+      this.setState({
+        client: nextProps.client,
+        value: nextProps.client.balance || 0,
+      });
+    }
   }
 
   shouldComponentUpdate (nextState) {
@@ -87,6 +89,9 @@ class ClientDetails extends Component {
       palette: {
         primary: {
           main: '#ff6347',
+          light: '#ff63f7',
+          dark: '#ff63f7',
+          contrastText: 'black',
         },
       },
     });
@@ -158,7 +163,7 @@ $
                   <strong>Contact Phone: </strong>
                   {client.phone}
                 </CollectionItem>
-                <ThemeProvider theme={deleteTheme}>
+                <MuiThemeProvider theme={deleteTheme}>
                   <Button
                     onClick={this.onDelete}
                     className={classes.deleteButton}
@@ -166,7 +171,7 @@ $
                   >
                     DELETE
                   </Button>
-                </ThemeProvider>
+                </MuiThemeProvider>
               </CardContent>
             </Card>
           </>
@@ -238,8 +243,8 @@ const ClientMainInfo = styled.h3`
 `;
 
 const CollectionItem = styled.div`
-  background: #eee;
-  padding: 10px 16px;
+  background: #f4f4f4;
+  padding: 14px 18px;
   margin: 8px 0;
   border-radius: 1px;
 `;

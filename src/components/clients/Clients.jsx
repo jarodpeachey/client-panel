@@ -223,9 +223,29 @@ class Clients extends Component {
                 <LinearProgress />
               </>
             ) : (
-              <div className="center-text">
-                <h3>Sorry, there was an error fetching your clients.</h3>
-              </div>
+              <>
+                {clients.length === 0 ? (
+                  <div className="center-text">
+                    <h3>
+                      There are no clients! You can add one if you'd like.
+                    </h3>
+                    <Link to="/client/add">
+                      <Button
+                        color="secondary"
+                        variant="contained"
+                        className={classes.newButton}
+                      >
+                        <PlusIcon>+ </PlusIcon>
+                        New
+                      </Button>
+                    </Link>
+                  </div>
+                ) : (
+                  <div className="center-text">
+                    <h3>Sorry, there was an error fetching your clients.</h3>
+                  </div>
+                )}
+              </>
             )}
           </>
         )}
@@ -253,9 +273,7 @@ const styles = theme => ({
   tableCellBody: {},
 });
 
-const TableHeading = styled.div`
-
-`;
+const TableHeading = styled.div``;
 
 const PlusIcon = styled.span`
   font-size: 32px;
