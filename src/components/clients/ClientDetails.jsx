@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import styled from 'styled-components';
@@ -181,6 +182,11 @@ $
                     Delete
                   </Button>
                 </MuiThemeProvider>
+                <Link to={`/client/edit/${client.id}`}>
+                  <Button variant="contained" className={classes.editLink}>
+                    Edit
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           </>
@@ -220,10 +226,9 @@ const styles = theme => ({
     left: 4,
     color: 'green',
   },
-  // deleteButton: {
-  //   background: 'tomato',
-  //   color: 'white',
-  // },
+  editLink: {
+    margin: '0 8px',
+  },
 });
 
 const ClientID = styled.h5`
@@ -254,7 +259,7 @@ const ClientMainInfo = styled.h3`
 const CollectionItem = styled.div`
   background: #f4f4f4;
   padding: 14px 18px;
-  margin: 8px 0;
+  margin: 14px 0;
   border-radius: 1px;
 `;
 

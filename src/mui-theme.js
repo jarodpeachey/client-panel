@@ -19,9 +19,9 @@ const palette = {
 const overrides = {
   MuiButton: {
     root: {
-      userSelect: 'none !important',
-      outline: 'none !important',
-      margin: '0px !important',
+      userSelect: 'none',
+      outline: 'none',
+      margin: '0px',
       borderRadius: 0,
       boxShadow: 'none !important',
     },
@@ -46,7 +46,7 @@ const overrides = {
     root: {
       background: [palette.primary.main],
       padding: '12px 16px',
-      boxShadow: '0px 8px 16px -8px #bbb, 0 8px 16px 0 #ddd',
+      // boxShadow: '0px 8px 16px -8px #bbb, 0 8px 16px 0 #ddd',
     },
     title: {
       color: 'white',
