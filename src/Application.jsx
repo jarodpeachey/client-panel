@@ -15,6 +15,7 @@ import styledTheme from './styled-theme';
 import Header from './components/Header';
 import Dashboard from './components/pages/Dashboard';
 import AddClient from './components/clients/AddClient';
+import EditClient from './components/clients/EditClient';
 import ClientDetails from './components/clients/ClientDetails';
 
 library.add(faEdit, faCheckCircle);
@@ -70,6 +71,18 @@ class Application extends Component {
                   {<Header {...props} pathname={location.pathname} />}
                   <Wrapper className="container">
                     <ClientDetails {...props} />
+                  </Wrapper>
+                </>
+              )}
+            />
+            <Route
+              exact
+              path="/client/edit/:id"
+              render={props => (
+                <>
+                  {<Header {...props} pathname={location.pathname} />}
+                  <Wrapper className="container">
+                    <EditClient {...props} />
                   </Wrapper>
                 </>
               )}

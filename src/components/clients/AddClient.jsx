@@ -182,23 +182,6 @@ const styles = theme => ({
     margin: '0 auto',
     padding: 16,
   },
-  // mainIcon: {
-  //   width: 120,
-  //   height: 120,
-  //   padding: 16,
-  //   background: '#ccc',
-  //   color: 'white',
-  //   borderRadius: '50%',
-  // },
-  // mainIconContainer: {
-  //   display: 'flex',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  //   position: 'relative',
-  //   width: '100%',
-  //   left: 0,
-  //   bottom: 'calc(32px + 60px)',
-  // },
   buttonRoot: {
     padding: 10,
     marginTop: 8,
