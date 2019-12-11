@@ -89,9 +89,18 @@ class ClientDetails extends Component {
       palette: {
         primary: {
           main: '#ff6347',
-          light: '#ff63f7',
-          dark: '#ff63f7',
-          contrastText: 'black',
+          contrastText: '#fff',
+        },
+      },
+      overrides: {
+        MuiButton: {
+          root: {
+            userSelect: 'none !important',
+            outline: 'none !important',
+            margin: '0px !important',
+            borderRadius: 0,
+            boxShadow: 'none !important',
+          },
         },
       },
     });
@@ -166,10 +175,10 @@ $
                 <MuiThemeProvider theme={deleteTheme}>
                   <Button
                     onClick={this.onDelete}
-                    className={classes.deleteButton}
+                    variant="contained"
                     color="primary"
                   >
-                    DELETE
+                    Delete
                   </Button>
                 </MuiThemeProvider>
               </CardContent>
@@ -211,10 +220,10 @@ const styles = theme => ({
     left: 4,
     color: 'green',
   },
-  deleteButton: {
-    background: 'tomato',
-    color: 'white',
-  },
+  // deleteButton: {
+  //   background: 'tomato',
+  //   color: 'white',
+  // },
 });
 
 const ClientID = styled.h5`

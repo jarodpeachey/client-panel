@@ -11,14 +11,17 @@ const palette = {
     main: '#435d7d',
     contrastText: '#fff',
   },
+  error: {
+    main: '#ff6347',
+  },
 };
 
 const overrides = {
   MuiButton: {
     root: {
-      userSelect: 'none',
-      outline: 'none',
-      margin: '0px',
+      userSelect: 'none !important',
+      outline: 'none !important',
+      margin: '0px !important',
       borderRadius: 0,
       boxShadow: 'none !important',
     },
